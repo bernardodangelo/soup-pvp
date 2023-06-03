@@ -1,11 +1,13 @@
 package br.com.bernardo;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PvPSoup extends JavaPlugin implements Listener {
@@ -14,6 +16,22 @@ public final class PvPSoup extends JavaPlugin implements Listener {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
         getLogger().info("PvP Soup Plugin Starting");
+
+        ShapelessRecipe recipeCocoa = new ShapelessRecipe(new ItemStack(Material.MUSHROOM_SOUP));
+        recipeCocoa.addIngredient(Material.BOWL);
+        recipeCocoa.addIngredient(Material.INK_SACK, 3);
+        Bukkit.addRecipe(recipeCocoa);
+
+        ShapelessRecipe recipeCactus = new ShapelessRecipe(new ItemStack(Material.MUSHROOM_SOUP));
+        recipeCactus.addIngredient(Material.BOWL);
+        recipeCactus.addIngredient(Material.CACTUS);
+        Bukkit.addRecipe(recipeCactus);
+
+        ShapelessRecipe recipeFlower = new ShapelessRecipe(new ItemStack(Material.MUSHROOM_SOUP));
+        recipeFlower.addIngredient(Material.BOWL);
+        recipeFlower.addIngredient(Material.RED_ROSE);
+        recipeFlower.addIngredient(Material.YELLOW_FLOWER);
+        Bukkit.addRecipe(recipeFlower);
     }
 
     @Override
