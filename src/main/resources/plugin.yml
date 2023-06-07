@@ -1,3 +1,15 @@
-name: PvPSoup
-version: '${project.version}'
-main: br.com.bernardo.PvPSoup
+name: SoupPvP
+version: '1.0'
+main: br.com.bernardo.SoupPvP
+api-version: 1.8
+description: Soup PvP Plugin
+
+commands:
+  soup:
+    description: Enable/disable Soup PvP Plugin
+    usage: /soup <enable|disable>
+    aliases: [souppvp]
+  souprecipes:
+    description: Enable/disable custom soup recipes
+    usage: /souprecipes <enable|disable>
+    permission: souppvp.admin
