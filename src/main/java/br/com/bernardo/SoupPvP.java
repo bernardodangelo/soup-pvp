@@ -22,6 +22,7 @@ public final class SoupPvP extends JavaPlugin implements Listener {
     private boolean enableCocoaRecipe;
     private boolean enableCactusRecipe;
     private boolean enableFlowerRecipe;
+    private boolean enablePotatoCarrotRecipe;
 
     @Override
     public void onEnable() {
@@ -51,6 +52,14 @@ public final class SoupPvP extends JavaPlugin implements Listener {
             Bukkit.addRecipe(recipeFlower);
         }
 
+        if (enablePotatoCarrotRecipe) {
+            ShapelessRecipe recipePotatoCarrot = new ShapelessRecipe(new ItemStack(Material.MUSHROOM_SOUP));
+            recipePotatoCarrot.addIngredient(Material.BOWL);
+            recipePotatoCarrot.addIngredient(Material.POTATO_ITEM);
+            recipePotatoCarrot.addIngredient(Material.CARROT_ITEM);
+            Bukkit.addRecipe(recipePotatoCarrot);
+        }
+
         enabledPlayers = new HashSet<>();
     }
 
@@ -65,6 +74,7 @@ public final class SoupPvP extends JavaPlugin implements Listener {
         enableCocoaRecipe = config.getBoolean("cocoa");
         enableCactusRecipe = config.getBoolean("cactus");
         enableFlowerRecipe = config.getBoolean("flowers");
+        enablePotatoCarrotRecipe = config.getBoolean("potato-carrot");
     }
 
     @EventHandler
