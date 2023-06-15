@@ -32,7 +32,7 @@ public final class SoupPvP extends JavaPlugin implements Listener {
         if (enableCocoaRecipe) {
             ShapelessRecipe recipeCocoa = new ShapelessRecipe(new ItemStack(Material.MUSHROOM_SOUP));
             recipeCocoa.addIngredient(Material.BOWL);
-            recipeCocoa.addIngredient(Material.COCOA);
+            recipeCocoa.addIngredient(Material.INK_SACK, 3);
             Bukkit.addRecipe(recipeCocoa);
         }
 
