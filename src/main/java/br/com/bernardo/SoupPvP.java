@@ -18,7 +18,6 @@ import java.util.Set;
 import java.util.UUID;
 
 public final class SoupPvP extends JavaPlugin implements Listener {
-    private Set<UUID> enabledPlayers;
     private boolean enableCocoaRecipe;
     private boolean enableCactusRecipe;
     private boolean enableFlowerRecipe;
@@ -59,8 +58,6 @@ public final class SoupPvP extends JavaPlugin implements Listener {
             recipePotatoCarrot.addIngredient(Material.CARROT_ITEM);
             Bukkit.addRecipe(recipePotatoCarrot);
         }
-
-        enabledPlayers = new HashSet<>();
     }
 
     @Override
@@ -83,64 +80,16 @@ public final class SoupPvP extends JavaPlugin implements Listener {
         ItemStack item = event.getItem();
 
         if (event.getAction().toString().contains("RIGHT") && item != null && item.getType() == Material.MUSHROOM_SOUP) {
-            if (isEnabledForPlayer(player)) {
-                if (player.getHealth() < player.getMaxHealth()) {
-                    double newHealth = Math.min(player.getHealth() + 7, player.getMaxHealth());
-                    player.setHealth(newHealth);
-                    item.setType(Material.BOWL);
-                } else if (player.getFoodLevel() < 20) {
-                    player.setFoodLevel(Math.min(player.getFoodLevel() + 6, 20));
-                    item.setType(Material.BOWL);
-                }
-
-                event.setCancelled(true);
+            if (player.getHealth() < player.getMaxHealth()) {
+                double newHealth = Math.min(player.getHealth() + 7, player.getMaxHealth());
+                player.setHealth(newHealth);
+                item.setType(Material.BOWL);
+            } else if (player.getFoodLevel() < 20) {
+                player.setFoodLevel(Math.min(player.getFoodLevel() + 6, 20));
+                item.setType(Material.BOWL);
             }
+
+            event.setCancelled(true);
         }
-    }
-
-    private boolean isEnabledForPlayer(Player player) {
-        return enabledPlayers.contains(player.getUniqueId());
-    }
-
-    private void enableForPlayer(Player player) {
-        enabledPlayers.add(player.getUniqueId());
-    }
-
-    private void disableForPlayer(Player player) {
-        enabledPlayers.remove(player.getUniqueId());
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("soup")) {
-            if (!sender.hasPermission("souppvp.admin")) {
-                sender.sendMessage("You don't have permission to use this command.");
-                return true;
-            }
-
-            if (!(sender instanceof Player)) {
-                sender.sendMessage("This command can only be used by players.");
-                return true;
-            }
-
-            Player player = (Player) sender;
-
-            if (args.length == 1) {
-                if (args[0].equalsIgnoreCase("enable")) {
-                    enableForPlayer(player);
-                    player.sendMessage("Soup PvP has been enabled.");
-                    return true;
-                } else if (args[0].equalsIgnoreCase("disable")) {
-                    disableForPlayer(player);
-                    player.sendMessage("Soup PvP has been disabled.");
-                    return true;
-                }
-            }
-
-            player.sendMessage("Invalid command. Usage: /soup <enable|disable>");
-            return true;
-        }
-
-        return false;
     }
 }
